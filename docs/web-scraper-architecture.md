@@ -1,0 +1,43 @@
+# Web Scraper Architecture
+
+```mermaid
+flowchart TD
+    A[User Interface] --> B[Scraper Manager]
+    
+    B --> C[URL Queue]
+    C --> D[URL Frontier]
+    
+    B --> E[Fetcher Module]
+    E --> F[HTTP Client]
+    F --> G[Response Handler]
+    
+    B --> H[Parser Module]
+    H --> I[HTML Parser]
+    H --> J[Data Extractor]
+    J --> K[Data Transformer]
+    
+    B --> L[Storage Module]
+    L --> M[Database Connector]
+    L --> N[File System Handler]
+    
+    B --> O[Policy Module]
+    O --> P[Rate Limiter]
+    O --> Q[Robots.txt Parser]
+    O --> R[Request Prioritizer]
+    
+    S[Configuration Manager] --> B
+    
+    T[Monitoring & Logging] --> B
+    
+    U[Error Handler] --> B
+    
+    subgraph External_Services
+        V[Proxy Manager]
+        W[CAPTCHA Solver]
+        X[Browser Renderer]
+    end
+    
+    E --> External_Services
+```
+
+The diagram above shows the high-level architecture of the web scraper system.

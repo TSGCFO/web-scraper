@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default'
+        });
+    </script>
+    <style>
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .mermaid {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Scraper Architecture</h1>
+        <div class="mermaid">
+            flowchart TD
+                A[User Interface] --> B[Scraper Manager]
+                
+                B --> C[URL Queue]
+                C --> D[URL Frontier]
+                
+                B --> E[Fetcher Module]
+                E --> F[HTTP Client]
+                F --> G[Response Handler]
+                
+                B --> H[Parser Module]
+                H --> I[HTML Parser]
+                H --> J[Data Extractor]
+                J --> K[Data Transformer]
+                
+                B --> L[Storage Module]
+                L --> M[Database Connector]
+                L --> N[File System Handler]
+                
+                B --> O[Policy Module]
+                O --> P[Rate Limiter]
+                O --> Q[Robots.txt Parser]
+                O --> R[Request Prioritizer]
+                
+                S[Configuration Manager] --> B
+                
+                T[Monitoring & Logging] --> B
+                
+                U[Error Handler] --> B
+                
+                subgraph External_Services
+                    V[Proxy Manager]
+                    W[CAPTCHA Solver]
+                    X[Browser Renderer]
+                end
+                
+                E --> External_Services
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,548 @@
+# Web Scraper Development Rules
+
+## 1. Architecture Compliance Rules
+
+### 1.1 Component Structure
+1. All components must strictly follow the documented architecture in core-architecture.md
+2. Maintain clear separation between core components:
+   - URL Manager
+   - Crawler Component
+   - Parser Engine
+   - Data Storage System
+   - Job Manager
+
+### 1.2 Language-Specific Rules
+1. TypeScript Components (as per hybrid-architecture.md):
+   - Web scraping core functionality
+   - Browser automation using Puppeteer
+   - HTTP client implementations
+   - Queue management
+   - API gateway layer
+
+2. Python Components (as per hybrid-architecture.md):
+   - Machine learning pipeline
+   - Data processing and analysis
+   - Feature extraction
+   - Analytics engine
+   - Computational tasks
+
+### 1.3 Component Implementation
+1. Follow interface definitions exactly as specified in component-design.md:
+   ```typescript
+   // Example: Crawler Component must implement
+   interface CrawlerConfig {
+     maxConcurrentRequests: number;
+     requestTimeout: number;
+     retryAttempts: number;
+     retryDelay: number;
+     userAgent: string;
+   }
+   ```
+
+2. Maintain strict component encapsulation:
+   - Private fields for internal state
+   - Public methods only for documented interfaces
+   - No direct access between components
+
+### 1.4 Integration Rules
+1. Service Communication:
+   - REST APIs for synchronous operations
+   - Message queues for asynchronous tasks
+   - Shared type definitions between services
+
+2. Data Exchange:
+   - Use defined data serialization formats
+   - Implement type safety across language boundaries
+   - Follow documented schema definitions
+
+### 1.5 Component Dependencies
+1. Follow the documented data flow:
+   ```
+   [URL Manager] → [Crawler] → [Parser] → [Data Storage]
+        ↑             ↓           ↓            ↓
+        └────────[Job Manager]────────────────┘
+   ```
+
+2. Respect component boundaries:
+   - No circular dependencies
+   - Clear separation of concerns
+   - Documented interaction patterns
+
+### 1.6 Error Handling
+1. Implement error handling as specified:
+   - Network errors with exponential backoff
+   - Parsing errors with fallback patterns
+   - Storage errors with retry mechanisms
+   - Component-specific error types
+
+### 1.7 Configuration Management
+1. Follow configuration structure:
+   ```typescript
+   interface SystemConfig {
+     crawler: CrawlerConfig;
+     parser: ParserConfig;
+     storage: StorageConfig;
+     queue: QueueConfig;
+     policy: PolicyConfig;
+     error: ErrorConfig;
+     monitoring: MonitoringConfig;
+   }
+   ```
+
+### 1.8 Project Structure
+1. Maintain documented directory structure:
+   ```
+   project/
+   ├── scraper/              # TypeScript
+   │   ├── src/
+   │   ├── tests/
+   │   └── package.json
+   ├── ml_service/           # Python
+   │   ├── src/
+   │   ├── tests/
+   │   └── requirements.txt
+   └── shared/              # Shared Definitions
+       ├── types/
+       └── schemas/
+   ```
+
+### 1.9 Code Review Requirements
+1. Architecture compliance checks:
+   - Component interface adherence
+   - Dependency management
+   - Error handling implementation
+   - Configuration validation
+
+2. Integration verification:
+   - Service communication patterns
+   - Data serialization formats
+   - Type safety across boundaries
+   - Error propagation
+
+## 2. Implementation Standards
+
+### 2.1 TypeScript Components
+1. Proxy Management:
+   - Implement ProxyConfig interface exactly as specified
+   - Use defined rotation strategies
+   - Include all required proxy features
+   - Implement performance tracking
+
+2. Browser Automation:
+   - Use Puppeteer as specified
+   - Implement BrowserConfig interface
+   - Support all documented features
+   - Handle resource management
+
+3. CAPTCHA Handling:
+   - Follow CaptchaConfig interface
+   - Support all specified CAPTCHA types
+   - Implement caching mechanism
+   - Include validation logic
+
+4. Request Management:
+   - Implement RequestConfig interface
+   - Include all specified features
+   - Handle browser fingerprinting
+   - Manage sessions properly
+
+### 2.2 Python Components
+1. Intelligent Data Extraction:
+   - Use specified ML libraries:
+     * scikit-learn for ML models
+     * spaCy/NLTK for NLP
+     * OpenCV/PyTorch for computer vision
+   - Follow AIConfig dataclass structure
+   - Implement all documented features
+   - Include proper type hints
+
+2. Machine Learning Pipeline:
+   - Use MLConfig as specified
+   - Implement incremental learning
+   - Follow Python type hints
+   - Use scientific Python stack
+
+### 2.3 Feature Implementation Rules
+1. Advanced Features:
+   - Follow interface definitions exactly
+   - Implement all documented methods
+   - Include proper error handling
+   - Add comprehensive tests
+
+2. Data Processing:
+   - Use appropriate language features
+   - Follow type safety guidelines
+   - Implement validation
+   - Handle edge cases
+
+3. Integration Requirements:
+   - Follow REST API patterns
+   - Use message queues correctly
+   - Implement proper serialization
+   - Maintain type safety
+
+### 2.4 Testing Standards
+1. Unit Tests:
+   - Test all public interfaces
+   - Mock external dependencies
+   - Include edge cases
+   - Maintain high coverage
+
+2. Integration Tests:
+   - Test component interactions
+   - Verify data flow
+   - Test error scenarios
+   - Include performance tests
+
+### 2.5 Code Quality
+1. TypeScript:
+   - Use strict type checking
+   - Follow interface definitions
+   - Document public APIs
+   - Use async/await properly
+
+2. Python:
+   - Follow PEP 8 guidelines
+   - Use type hints
+   - Document with docstrings
+   - Handle async operations correctly
+
+## 3. Performance and Scaling Rules
+
+### 3.1 Scaling Requirements
+1. Horizontal Scaling:
+   - Implement ScalingConfig interface
+   - Support dynamic node addition/removal
+   - Implement load balancing strategies
+   - Monitor node health
+   - Handle state synchronization
+   - Optimize resource allocation
+
+2. Vertical Scaling:
+   - Follow ResourceConfig specifications
+   - Implement resource monitoring
+   - Handle resource optimization
+   - Manage memory allocation
+   - Control CPU utilization
+   - Optimize I/O operations
+
+### 3.2 Performance Optimization
+1. Request Handling:
+   - Implement HTTP/2 multiplexing
+   - Use connection pooling
+   - Enable keep-alive connections
+   - Implement request pipelining
+   - Use compression
+   - Enable caching
+   - Optimize DNS resolution
+
+2. Concurrent Processing:
+   - Follow ConcurrencyConfig interface
+   - Manage worker pools efficiently
+   - Implement task queuing
+   - Handle load-based scaling
+   - Monitor resource allocation
+   - Implement error recovery
+
+### 3.3 Data Processing
+1. Batch Operations:
+   - Implement BatchConfig interface
+   - Use dynamic batch sizing
+   - Enable parallel processing
+   - Optimize memory usage
+   - Handle errors gracefully
+   - Monitor performance
+
+2. Storage Optimization:
+   - Follow StorageOptimizer interface
+   - Implement database indexing
+   - Use data partitioning
+   - Optimize queries
+   - Manage cache effectively
+   - Use connection pooling
+   - Enable bulk operations
+
+### 3.4 Memory Management
+1. Resource Control:
+   - Implement MemoryConfig interface
+   - Optimize garbage collection
+   - Use memory pooling
+   - Manage buffers efficiently
+   - Monitor memory leaks
+   - Handle resource cleanup
+   - Manage memory pressure
+
+### 3.5 Monitoring Requirements
+1. Performance Metrics:
+   - Track request latency
+   - Monitor processing time
+   - Measure resource utilization
+   - Track error rates
+   - Monitor throughput
+   - Track success rates
+   - Monitor queue lengths
+
+2. Optimization Process:
+   - Implement feedback loops
+   - Analyze performance data
+   - Identify bottlenecks
+   - Apply optimizations
+   - Monitor results
+   - Adjust strategies
+
+### 3.6 Testing Requirements
+1. Load Testing:
+   - Implement stress testing
+   - Conduct load testing
+   - Perform endurance testing
+   - Execute spike testing
+   - Test scalability
+   - Verify capacity limits
+
+2. Performance Benchmarking:
+   - Measure response times
+   - Track throughput
+   - Monitor resource usage
+   - Track error rates
+   - Test concurrency handling
+   - Measure recovery time
+
+## 4. Ethics and Compliance Rules
+
+### 4.1 Robots.txt Compliance
+1. Implementation Requirements:
+   - Follow RobotsConfig interface exactly
+   - Implement caching mechanism
+   - Handle parsing errors gracefully
+   - Update cache regularly
+
+2. Best Practices:
+   - Always check robots.txt before crawling
+   - Respect crawl-delay directives
+   - Honor allow/disallow rules
+   - Document compliance measures
+
+### 4.2 Rate Limiting
+1. Implementation Requirements:
+   - Follow RateLimitConfig interface
+   - Implement token bucket algorithm
+   - Support domain-specific limits
+   - Handle rate limit errors
+
+2. Best Practices:
+   - Monitor server response times
+   - Implement adaptive rate limiting
+   - Respect server response headers
+   - Document rate limit policies
+
+### 4.3 Data Privacy
+1. Implementation Requirements:
+   - Follow PrivacyConfig interface
+   - Implement data anonymization
+   - Handle PII properly
+   - Enforce retention policies
+
+2. Best Practices:
+   - Minimize data collection
+   - Encrypt sensitive data
+   - Implement access controls
+   - Handle deletion requests
+
+### 4.4 Terms of Service
+1. Implementation Requirements:
+   - Follow TosConfig interface
+   - Validate access permissions
+   - Handle authentication properly
+   - Document compliance
+
+2. Best Practices:
+   - Review ToS regularly
+   - Maintain access logs
+   - Conduct compliance audits
+   - Update rules as needed
+
+### 4.5 Legal Compliance
+1. Implementation Requirements:
+   - Follow LegalConfig interface
+   - Validate operations
+   - Log compliance events
+   - Handle jurisdictional rules
+
+2. Key Areas:
+   - Copyright compliance
+   - Data protection
+   - API terms compliance
+   - Commercial use restrictions
+
+### 4.6 Ethical Data Collection
+1. Implementation Requirements:
+   - Follow EthicsConfig interface
+   - Validate collection methods
+   - Generate transparency reports
+   - Document practices
+
+2. Best Practices:
+   - Transparent collection
+   - Respect privacy
+   - Regular audits
+   - Clear documentation
+
+### 4.7 Technical Implementation
+1. Request Headers:
+   - Follow HeaderConfig interface
+   - Identify bot clearly
+   - Provide contact information
+   - Include rate limiting headers
+
+2. Best Practices:
+   - Use appropriate user-agent
+   - Handle response headers
+   - Maintain consistency
+   - Document header usage
+
+### 4.8 Monitoring and Reporting
+1. Implementation Requirements:
+   - Follow MonitoringConfig interface
+   - Track compliance metrics
+   - Generate reports
+   - Handle alerts
+
+2. Key Metrics:
+   - Robots.txt compliance
+   - Rate limit adherence
+   - Privacy compliance
+   - ToS compliance
+
+### 4.9 Error Handling
+1. Implementation Requirements:
+   - Follow ErrorConfig interface
+   - Handle compliance errors
+   - Implement recovery strategies
+   - Document incidents
+
+2. Best Practices:
+   - Log violations
+   - Notify administrators
+   - Update rules
+   - Document resolutions
+
+## 5. Documentation Rules
+
+### 5.1 Documentation Structure
+1. Required Documentation:
+   - Architecture overview diagrams
+   - Component interface specifications
+   - API documentation
+   - Implementation guides
+   - Deployment procedures
+   - Testing guidelines
+
+2. File Organization:
+   - Keep documentation in /docs directory
+   - Use clear file naming conventions
+   - Maintain consistent file structure
+   - Version control documentation with code
+
+### 5.2 Code Documentation
+1. TypeScript Components:
+   - Document all public interfaces
+   - Include JSDoc comments
+   - Provide usage examples
+   - Document error handling
+
+2. Python Components:
+   - Use docstring format
+   - Include type hints
+   - Document parameters and returns
+   - Provide usage examples
+
+### 5.3 Documentation Updates
+1. Change Management:
+   - Update docs with code changes
+   - Review documentation in PRs
+   - Keep diagrams up to date
+   - Track documentation versions
+
+2. Synchronization Rules:
+   - Link documentation to code
+   - Cross-reference related docs
+   - Maintain changelog
+   - Update affected docs
+
+### 5.4 API Documentation
+1. Requirements:
+   - Use OpenAPI/Swagger
+   - Document all endpoints
+   - Include request/response examples
+   - Document error responses
+
+2. Best Practices:
+   - Keep docs current
+   - Include authentication details
+   - Document rate limits
+   - Provide SDK examples
+
+### 5.5 Implementation Guides
+1. Content Requirements:
+   - Setup instructions
+   - Configuration details
+   - Dependency information
+   - Troubleshooting guides
+
+2. Maintenance Rules:
+   - Regular reviews
+   - Version updates
+   - Deprecation notices
+   - Migration guides
+
+### 5.6 Testing Documentation
+1. Required Documentation:
+   - Test coverage reports
+   - Test case descriptions
+   - Testing procedures
+   - CI/CD documentation
+
+2. Best Practices:
+   - Document test data
+   - Explain test scenarios
+   - Update with new features
+   - Document known issues
+
+### 5.7 Architecture Documentation
+1. Required Elements:
+   - System diagrams
+   - Component relationships
+   - Data flow diagrams
+   - Deployment architecture
+
+2. Update Rules:
+   - Review after changes
+   - Update on new features
+   - Maintain versions
+   - Document decisions
+
+### 5.8 Code Examples
+1. Requirements:
+   - Provide working examples
+   - Include common use cases
+   - Document edge cases
+   - Show error handling
+
+2. Best Practices:
+   - Keep examples simple
+   - Test all examples
+   - Update with changes
+   - Include comments
+
+### 5.9 Review Process
+1. Documentation Review:
+   - Technical accuracy
+   - Completeness check
+   - Style consistency
+   - Link validation
+
+2. Maintenance Schedule:
+   - Regular reviews
+   - Update outdated content
+   - Remove obsolete docs
+   - Track documentation debt
